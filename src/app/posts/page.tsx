@@ -1,22 +1,26 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
+import { createPost } from "@/actions/action";
 
 export default async function PostsPage() {
-  const posts = await prisma.post.findMany({
-    where: {
-      title: {
-        endsWith: "Post",
-      },
-    },
-    orderBy: {
-      createdAt: "asc",
-    },
-    select: {
-      id: true,
-      title: true,
-      slug: true,
-    },
-  });
+  const posts = await prisma.post
+    .findMany
+    //     {
+    //     where: {
+    //       title: {
+    //         endsWith: "Post",
+    //       },
+    //     },
+    //     orderBy: {
+    //       createdAt: "asc",
+    //     },
+    //     select: {
+    //       id: true,
+    //       title: true,
+    //       slug: true,
+    //     },
+    //   }
+    ();
   return (
     <main className="h-screen bg-blue-100 flex flex-col items-center gap-y-5 pt-24 text-center">
       <h1 className="text-3xl font-semibold">All Posts ({posts.length})</h1>
@@ -28,7 +32,7 @@ export default async function PostsPage() {
         ))}
       </ul>
 
-      <form className="flex flex-col gap-y-2 w-[300px]">
+      <form action={createPost} className="flex flex-col gap-y-2 w-[300px]">
         <input
           type="text"
           name="title"
