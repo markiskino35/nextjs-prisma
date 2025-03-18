@@ -10,15 +10,10 @@ export default async function PostPage({
       slug: params.slug,
     },
   });
-
-  if (!post) {
-    return <h1>Post not found</h1>;
-  }
-
   return (
     <main className="flex flex-col items-center gap-y-5 pt-24 text-center">
-      <h1>{post.title}</h1>
-      <p>{post.content}</p>
+      <h1>{post?.title}</h1>
+      <p>{post?.content}</p>
     </main>
   );
 }
